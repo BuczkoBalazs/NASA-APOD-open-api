@@ -1,5 +1,23 @@
 {
   "dependencies": {
     "swiper": "^8.2.4"
-  }
+  },
+  "name": "nasa-apod-open-api",
+  "description": "This is a project where I use API to get data using Javascript.\r I used the APOD API which can be found [here](https://api.nasa.gov/).\r If you don't find it just search for APOD.",
+  "version": "1.0.0",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BuczkoBalazs/NASA-APOD-open-api.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BuczkoBalazs/NASA-APOD-open-api/issues"
+  },
+  "homepage": "https://github.com/BuczkoBalazs/NASA-APOD-open-api#readme"
 }
