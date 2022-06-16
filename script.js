@@ -44,17 +44,14 @@ const gallery = (url) => {
 const getData = async (url, apiKey, date) => {
     const rootElement = document.getElementById("root");
 
-    fetch(`${url}${apiKey}&date=${date}`)
-    .then(res => res.json())
-    .then((data) => {
-        return (data.media_type === "image") ? rootElement.insertAdjacentHTML("beforeend", todayImageSection(data.url, data.title, data.explanation)) : rootElement.insertAdjacentHTML("beforeend", todayVideoSection(data.url, data.title, data.explanation))
-    })
-    .catch( err => console.log(err));
+    const response = await fetch(`${url}${apiKey}&date=${date}`);
+    const data = await response.json();
+    return (data.media_type === "image") ? rootElement.insertAdjacentHTML("beforeend", todayImageSection(data.url, data.title, data.explanation)) : rootElement.insertAdjacentHTML("beforeend", todayVideoSection(data.url, data.title, data.explanation))
 };
 
 // LOADEVENT
 
-const loadEvent = async () => {
+const loadEvent = () => {
 
     // VARIABLES
     const rootElement = document.getElementById("root");
