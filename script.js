@@ -10,7 +10,7 @@ const header = () => {
     `
 }
 
-const todayImageSection = (url, title, explanation) => {
+const imageSection = (url, title, explanation) => {
     return `
     <section id="todaySection">
         <img src=${url}>
@@ -20,7 +20,7 @@ const todayImageSection = (url, title, explanation) => {
     `
 };
 
-const todayVideoSection = (url, title, explanation) => {
+const videoSection = (url, title, explanation) => {
     return `
     <section id="todaySection">
         <iframe src=${url}></iframe>
@@ -30,7 +30,7 @@ const todayVideoSection = (url, title, explanation) => {
     `
 };
 
-const gallery = (url) => {
+const gallerySection = (url) => {
     return `
     <section id="gallery">
         <image src=${url}>
@@ -40,34 +40,36 @@ const gallery = (url) => {
 
 // FUNCTIONS
 
-// FETCH & RENDER
+// FETCH & RENDER Landing page & page when user choose dates
 const getData = async (url, apiKey, date) => {
-    const rootElement = document.getElementById("root");
-
     const response = await fetch(`${url}${apiKey}&date=${date}`);
-    const data = await response.json();
-    return (data.media_type === "image") ? rootElement.insertAdjacentHTML("beforeend", todayImageSection(data.url, data.title, data.explanation)) : rootElement.insertAdjacentHTML("beforeend", todayVideoSection(data.url, data.title, data.explanation))
+    return response.json();
 };
 
 // LOADEVENT
 
-const loadEvent = () => {
-
+const loadEvent = async () => {
+    
     // VARIABLES
     const rootElement = document.getElementById("root");
     const url = "https://api.nasa.gov/planetary/apod";
     const apiKey = "?api_key=7ju7WWOshTgaMnMDVMQCe1DITfBsMJfO5rXe61hn";
     let today = new Date().toISOString().slice(0, 10);
+    const todayData = await getData(url, apiKey, today);
+    
     
     // RENDER HEADER
     rootElement.insertAdjacentHTML("beforeend", header());
-
+    
     // FETCH & RENDER TODAY'S INFO
-    getData(url, apiKey, today)
+    
+    (todayData.media_type === "image") ?
+    rootElement.insertAdjacentHTML("beforeend", imageSection(todayData.url, todayData.title, todayData.explanation)) :
+    rootElement.insertAdjacentHTML("beforeend", videoSection(todayData.url, todayData.title, todayData.explanation))
 
     //FETCH & RENDER INFO GIVEN BY USER
 
-    const getUserGivenDate = (e) => {
+    const getUserGivenDate = async (e) => {
         e.preventDefault();
         let classList = e.target.classList;
         if (classList.contains("submit-date")) {
@@ -75,9 +77,13 @@ const loadEvent = () => {
                 document.getElementById("todaySection").remove();
             }
 
-            let date = document.getElementById("date").value
+            let userGivenDate = document.getElementById("date").value
      
-            getData(url, apiKey, date)
+            const userChooseDate = await getData(url, apiKey, userGivenDate);
+
+            (userChooseDate.media_type === "image") ?
+            rootElement.insertAdjacentHTML("beforeend", imageSection(userChooseDate.url, userChooseDate.title, userChooseDate.explanation)) :
+            rootElement.insertAdjacentHTML("beforeend", videoSection(userChooseDate.url, userChooseDate.title, userChooseDate.explanation))
         }
     };
     
