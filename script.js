@@ -1,14 +1,11 @@
-// import Swiper from 'swiper';
-// import 'swiper/css';
-
 // HTML ELEMENTS
 
 const header = () => {
     return `
     <form>
-    <label for="date">Write a date in format YYYY-MM-DD</label>
-    <input type="text" id="date" name="date">
-    <button class="submit-date">Show me</button>
+        <label for="date">Write a date in format YYYY-MM-DD</label>
+        <input type="text" id="date" name="date">
+        <button class="submit-date">Show me</button>
     </form>
     `
 }
@@ -16,9 +13,9 @@ const header = () => {
 const imageSection = (url, title, explanation) => {
     return `
     <section id="todaySection">
-    <img src=${url}>
-    <p>Title: ${title}</p>
-    <article>Explanation: ${explanation}</article>
+        <img src=${url}>
+        <p>Title: ${title}</p>
+        <article>Explanation: ${explanation}</article>
     </section>
     `
 };
@@ -26,24 +23,31 @@ const imageSection = (url, title, explanation) => {
 const videoSection = (url, title, explanation) => {
     return `
     <section id="todaySection">
-    <iframe src=${url}></iframe>
-    <p>Title: ${title}</p>
-    <article>Explanation: ${explanation}</article>
+        <iframe src=${url}></iframe>
+        <p>Title: ${title}</p>
+        <article>Explanation: ${explanation}</article>
     </section>
     `
 };
 
-const gallerySection = (url) => {
+const gallerySection = (imageArray, component) => {
     return `
     <section id="gallery">
-    <div class="swiper">
-    <div class="swiper-wrapper">
-    <div class="swiper-slide">
-    <img src=${url}>
-    </div>       
-    </div>
-    </div>
+        <div class="swiper">
+            <div class="swiper-wrapper">
+                ${imageArray.map((image) => component(image)).join("")}
+            </div>
+            <div class="swiper-pagination"></div>
+        </div>
     </section>
+    `
+};
+
+const galleryImages = ({ url }) => {
+    return `
+    <div class="swiper-slide">
+        <img src=${url}>
+    </div>    
     `
 }
 
@@ -57,7 +61,7 @@ const getData = async (url, apiKey, date) => {
 
 
 const getRandomData = async () => {
-    const response =  await fetch("https://api.nasa.gov/planetary/apod?api_key=7ju7WWOshTgaMnMDVMQCe1DITfBsMJfO5rXe61hn&count=1");
+    const response =  await fetch("https://api.nasa.gov/planetary/apod?api_key=7ju7WWOshTgaMnMDVMQCe1DITfBsMJfO5rXe61hn&count=3");
     return response.json();
 };
 
@@ -105,7 +109,7 @@ const loadEvent = async () => {
     
     //FETCH & RENDER Gallery section
     
-    if (randomData[0].media_type === "image") rootElement.insertAdjacentHTML("beforeend", gallerySection(randomData[0].url))
+    if (randomData.map((image) => image.media_type === "image")) rootElement.insertAdjacentHTML("beforeend", gallerySection(randomData, galleryImages))
     
     // const swiper = new Swiper('.swiper');
     
