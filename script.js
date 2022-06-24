@@ -77,6 +77,7 @@ const loadEvent = async () => {
     let today = new Date().toISOString().slice(0, 10);
     const todayData = await getData(url, apiKey, today);
     const randomData = await getRandomData();
+    console.log(randomData);
     
     // RENDER HEADER
     rootElement.insertAdjacentHTML("beforeend", header());
@@ -116,5 +117,14 @@ const loadEvent = async () => {
     // ADDEVENT LISTENERS
     document.addEventListener("click", getUserGivenDate);
     
+    const swiper = new Swiper('.swiper', {
+        loop: true,
+        autoplay: {
+            delay: 2000,
+        },
+        pagination: {
+            el: '.swiper-pagination',
+        },
+    });
 };
 window.addEventListener("load", loadEvent);

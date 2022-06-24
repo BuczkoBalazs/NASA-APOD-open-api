@@ -6,22 +6,9 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>APOD open API project</title>
 	<link rel="stylesheet" href="./style.css">
+	<link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css"/>
+	<script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
 	<script src="./script.js"></script>
-	<script type="module">
-		import Swiper from 'https://unpkg.com/swiper@8/swiper-bundle.esm.browser.min.js'
-	  
-		const swiper = new Swiper('.swiper', {
-			slidePerView: 1,
-			loop: true,
-			pagination: {
-				el: '.swiper-pagination'
-			},
-			autoplay: {
-				delay: 2000,
-				disableOnInteraction: true
-			} 
-		})
-	</script>
 </head>
 <body>
 	<div id="root"></div>
