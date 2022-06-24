@@ -61,7 +61,7 @@ const getData = async (url, apiKey, date) => {
 
 
 const getRandomData = async () => {
-    const response =  await fetch("https://api.nasa.gov/planetary/apod?api_key=7ju7WWOshTgaMnMDVMQCe1DITfBsMJfO5rXe61hn&count=3");
+    const response =  await fetch("https://api.nasa.gov/planetary/apod?api_key=7ju7WWOshTgaMnMDVMQCe1DITfBsMJfO5rXe61hn&count=6");
     return response.json();
 };
 
@@ -118,12 +118,18 @@ const loadEvent = async () => {
     document.addEventListener("click", getUserGivenDate);
     
     const swiper = new Swiper('.swiper', {
-        loop: true,
-        autoplay: {
-            delay: 2000,
-        },
         pagination: {
             el: '.swiper-pagination',
+        },
+        loop: true,
+        autoplay: {
+            delay: 3000,
+            disableOnInteraction: false,
+        },
+        effect: 'coverflow',
+        effect: 'flip',
+        flipEffect: {
+          slideShadows: false,
         },
     });
 };
