@@ -2,20 +2,24 @@
 
 const header = () => {
     return `
-    <form>
-        <label for="date">Write a date in format YYYY-MM-DD</label>
-        <input type="text" id="date" name="date">
-        <button class="submit-date">Show me</button>
-    </form>
+    <header>
+        <form>
+            <label for="date">To choose a different day than today enter it using format: YYYY-MM-DD</label>
+            <input type="text" id="date" name="date">
+            <button class="submit-date">Show me</button>
+        </form>
+    </header>
     `
-}
+};
 
 const imageSection = (url, title, explanation) => {
     return `
     <section id="todaySection">
         <img src=${url}>
-        <p>Title: ${title}</p>
-        <article>Explanation: ${explanation}</article>
+        <div class="todayDetails">
+            <p>${title}</p>
+            <article>${explanation}</article>
+        </div>
     </section>
     `
 };
@@ -24,8 +28,10 @@ const videoSection = (url, title, explanation) => {
     return `
     <section id="todaySection">
         <iframe src=${url}></iframe>
-        <p>Title: ${title}</p>
-        <article>Explanation: ${explanation}</article>
+        <div class="todayDetails">
+            <p>${title}</p>
+            <article>${explanation}</article>
+        </div>
     </section>
     `
 };
@@ -43,13 +49,13 @@ const gallerySection = (imageArray, component) => {
     `
 };
 
-const galleryImages = ({ url }) => {
+const galleryPics = ({ media_type, url }) => {
     return `
     <div class="swiper-slide">
-        <img src=${url}>
+        ${(media_type === "image") ? `<img src=${url}>` : `<iframe src=${url}></iframe>`}
     </div>    
     `
-}
+};
 
 // FUNCTIONS
 
@@ -62,7 +68,7 @@ const getData = async (url, apiKey, date) => {
 
 const getRandomData = async () => {
     const response =  await fetch("https://api.nasa.gov/planetary/apod?api_key=7ju7WWOshTgaMnMDVMQCe1DITfBsMJfO5rXe61hn&count=6");
-    return response.json();
+    return response.json()
 };
 
 
@@ -86,7 +92,7 @@ const loadEvent = async () => {
     
     (todayData.media_type === "image") ?
     rootElement.insertAdjacentHTML("beforeend", imageSection(todayData.url, todayData.title, todayData.explanation)) :
-    rootElement.insertAdjacentHTML("beforeend", videoSection(todayData.url, todayData.title, todayData.explanation))
+    rootElement.insertAdjacentHTML("beforeend", videoSection(todayData.url, todayData.title, todayData.explanation));
     
     //FETCH & RENDER INFO GIVEN BY USER
     
@@ -98,28 +104,29 @@ const loadEvent = async () => {
                 document.getElementById("todaySection").remove();
             }
             
-            let userGivenDate = document.getElementById("date").value
+            let userGivenDate = document.getElementById("date").value;
             
             const userChooseDate = await getData(url, apiKey, userGivenDate);
             
             (userChooseDate.media_type === "image") ?
-            rootElement.insertAdjacentHTML("beforebegin", imageSection(userChooseDate.url, userChooseDate.title, userChooseDate.explanation)) :
-            rootElement.insertAdjacentHTML("beforebegin", videoSection(userChooseDate.url, userChooseDate.title, userChooseDate.explanation))
-        }
+            rootElement.insertAdjacentHTML("afterbegin", imageSection(userChooseDate.url, userChooseDate.title, userChooseDate.explanation)) :
+            rootElement.insertAdjacentHTML("afterbegin", videoSection(userChooseDate.url, userChooseDate.title, userChooseDate.explanation));
+        };
     };
     
     //FETCH & RENDER Gallery section
     
-    if (randomData.map((image) => image.media_type === "image")) rootElement.insertAdjacentHTML("beforeend", gallerySection(randomData, galleryImages))
-    
-    // const swiper = new Swiper('.swiper');
+    rootElement.insertAdjacentHTML("beforeend", gallerySection(randomData, galleryPics));
     
     // ADDEVENT LISTENERS
     document.addEventListener("click", getUserGivenDate);
     
+    // SWIPER CONSTRUCTOR
+
     const swiper = new Swiper('.swiper', {
         pagination: {
             el: '.swiper-pagination',
+            clickable: true,
         },
         loop: true,
         autoplay: {

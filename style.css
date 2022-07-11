@@ -1,4 +1,146 @@
+/* CSS reset */
+
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: none;
+  box-sizing: border-box;
+  background: transparent;
+  font-family: inherit;
+}
+a{
+  text-decoration: none;
+}
+a img {
+  border: none;
+}
+
+button,
+a {
+  cursor: pointer;
+  color: inherit;
+}
+
+textarea {
+  resize: none;
+}
+
+button,
+textarea,
+select {
+  appearance: none !important;
+  border-radius: 0;
+}
+
+/* Start of CSS */
+
+body header {
+  width: 100%;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  font-family: 'Montserrat', sans-serif;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.179);
+  z-index: 1;
+}
+
+body header input {
+  padding-left: 10px;
+  border-radius: 20px;
+  background-color: white;
+}
+
+body header button {
+  padding: 2px;
+  border: 2px solid white;
+  border-radius: 5px;
+}
+
+body header button:hover {
+  color: red;
+  border: 2px solid red;
+}
+
+#todaySection {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: url(./img/31.jpg);
+  background-size: 100%;
+}
+
+#todaySection img,
+#todaySection iframe {
+  width: 600px;
+  height: 80%;
+  border-radius: 20px;
+}
+
+.todayDetails {
+  width: 600px;
+  height: 80%;
+  margin-left: 20px;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  color: white;
+  border-radius: 20px;
+  backdrop-filter: saturate(200%) blur(3px);
+}
+
+.todayDetails p {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 24px;
+}
+
+.todayDetails article {
+  font-family: 'Courier Prime', monospace;
+  font-size: 15px;
+}
+
+
+#gallery {
+  width: 100%;
+  height: 100vh;
+  background-image: url(./img/31.jpg);
+  background-size: 100%;
+}
+
 .swiper {
-    width: 600px;
-    height: 300px;
-  }
+  width: 100%;
+  height: 100vh;
+}
+
+.swiper-wrapper {
+  width: 100%;
+  height: 100vh
+}
+
+.swiper-slide {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.swiper-slide img,
+.swiper-slide iframe {
+  width: 600px;
+  height: 80%;
+  border-radius: 20px;
+}
+
+.swiper-pagination span {
+  background-color: red;
+}
