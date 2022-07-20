@@ -20,9 +20,8 @@ If you want to check the page please click on the following [link](https://buczk
 I have some plans how to improve the page in the upcoming weeks.
 The following list should be done:
 
-- Style it with css not to look so odd
-- Separate today's information from the section where you can choose your preferred date
-- Create a so-called 'Gallery' section where you can swipe through random images provided by the API
+- Videos in Gallery section do not work properly (autoplay still goes on when video plays)
+- More styling should be added for better experience
 
 
 ## Thank you for visiting my repository!
